@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bridge.console.model.dao.ConfigMapper">
+    <resultMap id="BaseResultMap" type="com.bridge.console.model.entity.ConfigDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="INTEGER"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="app_id" property="appId" jdbcType="INTEGER"/>
+        <result column="config_key" property="configKey" jdbcType="VARCHAR"/>
+        <result column="config_value" property="configValue" jdbcType="VARCHAR"/>
+        <result column="pre_config_value" property="preConfigValue" jdbcType="VARCHAR"/>
+        <result column="key_version" property="keyVersion" jdbcType="VARCHAR"/>
+        <result column="env_id" property="envId" jdbcType="INTEGER"/>
+        <result column="key_type" property="keyType" jdbcType="VARCHAR"/>
+        <result column="key_status" property="keyStatus" jdbcType="INTEGER"/>
+        <result column="key_des" property="keyDes" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        ,
+        creator,
+        gmt_create,
+        modifier,
+        gmt_modified,
+        is_deleted,
+        app_id,
+        config_key,
+        config_value,
+        pre_config_value,
+        key_version,
+        key_status,
+        env_id,
+        key_type,
+        key_des
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from br_config
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from br_config
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.bridge.console.model.entity.ConfigDO">
+        insert into br_config (id, creator, gmt_create,
+                               modifier, gmt_modified, is_deleted,
+                               app_id, config_key, config_value, pre_config_value,
+                               key_version, key_type, key_status, env_id, key_des)
+        values (#{id,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
+                #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT},
+                #{appId,jdbcType=INTEGER}, #{configKey,jdbcType=VARCHAR}, #{configValue,jdbcType=VARCHAR},
+                #{preConfigValue,jdbcType=VARCHAR}, #{keyVersion,jdbcType=VARCHAR}, #{keyType,jdbcType=VARCHAR},
+                #{keyStatus,jdbcType=INTEGER}, #{envId,jdbcType=INTEGER}, #{keyDes,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.bridge.console.model.entity.ConfigDO">
+        insert into br_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="configKey != null">
+                config_key,
+            </if>
+            <if test="configValue != null">
+                config_value,
+            </if>
+            <if test="preConfigValue != null">
+                pre_config_value,
+            </if>
+            <if test="keyVersion != null">
+                key_version,
+            </if>
+            <if test="keyType != null">
+                key_type,
+            </if>
+            <if test="keyStatus != null">
+                key_status,
+            </if>
+            <if test="envId != null">
+                env_id,
+            </if>
+            <if test="keyDes != null">
+                key_des,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=INTEGER},
+            </if>
+            <if test="configKey != null">
+                #{configKey,jdbcType=VARCHAR},
+            </if>
+            <if test="configValue != null">
+                #{configValue,jdbcType=VARCHAR},
+            </if>
+            <if test="preConfigValue != null">
+                #{preConfigValue,jdbcType=VARCHAR},
+            </if>
+            <if test="keyVersion != null">
+                #{keyVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="keyType != null">
+                #{keyType,jdbcType=VARCHAR},
+            </if>
+            <if test="keyStatus != null">
+                #{keyStatus,jdbcType=INTEGER},
+            </if>
+            <if test="envId != null">
+                #{envId,jdbcType=INTEGER},
+            </if>
+            <if test="keyDes != null">
+                #{keyDes,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateConfigKv" parameterType="com.bridge.console.model.entity.ConfigDO">
+        update br_config
+        <set>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="preConfigValue != null">
+                pre_config_value = #{preConfigValue,jdbcType=VARCHAR},
+            </if>
+            <if test="keyType != null">
+                key_type = #{keyType,jdbcType=VARCHAR},
+            </if>
+            <if test="keyStatus != null">
+                key_status = #{keyStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="keyDes != null">
+                key_des = #{keyDes,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where app_id = #{appId,jdbcType=INTEGER}
+        and is_deleted = 0
+        and config_key = #{configKey,jdbcType=VARCHAR}
+        and key_version = #{keyVersion,jdbcType=VARCHAR}
+        and env_id = #{envId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bridge.console.model.entity.ConfigDO">
+        update br_config
+        set creator          = #{creator,jdbcType=INTEGER},
+            gmt_create       = #{gmtCreate,jdbcType=TIMESTAMP},
+            modifier         = #{modifier,jdbcType=INTEGER},
+            gmt_modified     = #{gmtModified,jdbcType=TIMESTAMP},
+            is_deleted       = #{isDeleted,jdbcType=BIT},
+            app_id           = #{appId,jdbcType=INTEGER},
+            config_key       = #{configKey,jdbcType=VARCHAR},
+            config_value     = #{configValue,jdbcType=VARCHAR},
+            pre_config_value = #{preConfigValue,jdbcType=VARCHAR},
+            key_version      = #{keyVersion,jdbcType=VARCHAR},
+            key_type         = #{keyType,jdbcType=VARCHAR},
+            key_status       = #{keyStatus,jdbcType=INTEGER},
+            env_id           = #{envId,jdbcType=INTEGER},
+            key_des          = #{keyDes,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countConfigKeyList" resultType="java.lang.Integer">
+        select
+        count(0)
+        from br_config
+        where app_id = #{appId,jdbcType=INTEGER}
+        and is_deleted = 0
+        and env_id = #{envId,jdbcType=INTEGER}
+        <if test="configKey != null">
+            and config_key like CONCAT('%', #{configKey,jdbcType=VARCHAR},'%')
+        </if>
+
+    </select>
+
+    <select id="queryConfigKeyList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_config
+        where app_id = #{appId,jdbcType=INTEGER}
+        and is_deleted = 0
+        and env_id = #{envId,jdbcType=INTEGER}
+        <if test="configKey != null">
+            and config_key like CONCAT('%', #{configKey,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="keyStatus != null">
+            and key_status = #{keyStatus,jdbcType=INTEGER}
+        </if>
+        <if test="sorts != null">
+            order by
+            <foreach collection="sorts" item="tag" separator=",">
+                ${tag}
+            </foreach>
+        </if>
+        <if test="offset &gt;= 0 and limit &gt; 0">
+            LIMIT #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="judgeKeyIsExist" resultType="int">
+        select
+            count(0)
+        from br_config
+        where config_key = #{configKey,jdbcType=INTEGER}
+          and app_id = #{appId,jdbcType=INTEGER}
+          and is_deleted = 0
+          and env_id = #{envId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByAppIdAndEnvIdAndConfigKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_config
+        where config_key = #{configKey,jdbcType=INTEGER}
+        and app_id = #{appId,jdbcType=INTEGER}
+        and env_id = #{envId,jdbcType=INTEGER}
+        and is_deleted = 0
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_config
+        where is_deleted = 0 and id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateById" parameterType="com.bridge.console.model.entity.ConfigDO">
+        update br_config
+        set modifier         = #{modifier,jdbcType=INTEGER},
+            gmt_modified     = #{gmtModified,jdbcType=TIMESTAMP},
+            config_value     = #{configValue,jdbcType=VARCHAR},
+            pre_config_value = #{preConfigValue,jdbcType=VARCHAR},
+            key_version      = #{keyVersion,jdbcType=VARCHAR},
+            key_status       = #{keyStatus,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+    </update>
+
+    <select id="selectConfigKeyList" resultType="com.bridge.console.model.vo.ValueVO">
+        select
+        config_key
+        as
+        value,
+        key_des as
+        keyDes
+        from br_config
+        where app_id = #{appId,jdbcType=INTEGER}
+        and is_deleted = 0
+        <if test="envId != null">
+            and env_id = #{envId,jdbcType=INTEGER}
+        </if>
+
+    </select>
+
+    <select id="selectByAppId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from br_config
+        where app_id = #{appId,jdbcType=INTEGER} and is_deleted = 0 and key_status = 1
+    </select>
+
+    <update id="deletedById">
+        update br_config
+        set modifier     = #{modifier,jdbcType=INTEGER},
+            gmt_modified = now(),
+            is_deleted   = 1
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+
+    </update>
+
+
+    <update id="updatePreConfigValue" parameterType="com.bridge.console.model.entity.ConfigDO">
+        update br_config
+        set modifier = 0, gmt_modified = now(), pre_config_value = #{preConfigValue,jdbcType=VARCHAR}
+        where
+        config_key = #{configKey,jdbcType=INTEGER}
+        and app_id = #{appId,jdbcType=INTEGER}
+        and env_id = #{envId,jdbcType=INTEGER}
+        and is_deleted = 0
+    </update>
+
+    <select id="selectConfigKeyIdList" resultType="int">
+        select id from br_config
+        where is_deleted = 0
+        and app_id = #{appId,jdbcType=INTEGER}
+        and env_id = #{envId,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>

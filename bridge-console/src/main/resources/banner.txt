@@ -1,0 +1,16 @@
+
+${AnsiColor.CYAN}
+
+  ██████╗  ██████╗  ██╗ ██████╗   ██████╗  ███████╗
+  ██╔══██╗ ██╔══██╗ ██║ ██╔══██╗ ██╔════╝  ██╔════╝
+  ██████╔╝ ██████╔╝ ██║ ██║  ██║ ██║  ███╗ █████╗
+  ██╔══██╗ ██╔══██╗ ██║ ██║  ██║ ██║   ██║ ██╔══╝
+  ██████╔╝ ██║  ██║ ██║ ██████╔╝ ╚██████╔╝ ███████╗
+  ╚═════╝  ╚═╝  ╚═╝ ╚═╝ ╚═════╝   ╚═════╝  ╚══════╝
+
+ ${AnsiColor.WHITE}
+ :: Bridge (v2.0.0) : https://gitee.com/Jay_git/bridge
+ :: Bridge example :  https://gitee.com/Jay_git/bridge-samples
+ :: Bridge doc :      http://doc.u2open.com/
+
+    welcome to use the bridge, if you have any questions, please contact me .

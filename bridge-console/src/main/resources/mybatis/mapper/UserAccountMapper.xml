@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bridge.console.model.dao.UserAccountMapper">
+    <resultMap id="BaseResultMap" type="com.bridge.console.model.entity.UserAccountDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="INTEGER"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+        <result column="account_role" property="accountRole" jdbcType="TINYINT"/>
+        <result column="team_id" property="teamId" jdbcType="INTEGER"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="account_mobile" property="accountMobile" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="enabled_state" property="enabledState" jdbcType="TINYINT"/>
+        <result column="push_count" property="pushCount" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        ,
+        creator,
+        gmt_create,
+        modifier,
+        gmt_modified,
+        is_deleted,
+        account_name,
+        account_role,
+        team_id,
+        password,
+        token,
+        real_name,
+        account_mobile,
+        email,
+        enabled_state,
+        push_count
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from br_user_account
+        where id = #{id,jdbcType=INTEGER} and is_deleted = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from br_user_account
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.bridge.console.model.entity.UserAccountDO">
+        insert into br_user_account (id, creator, gmt_create,
+                                     modifier, gmt_modified, is_deleted,
+                                     account_name, account_role, team_id, password,
+                                     token, real_name, account_mobile,
+                                     email, enabled_state, push_count)
+        values (#{id,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
+                #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT},
+                #{accountName,jdbcType=VARCHAR}, #{accountRole,jdbcType=TINYINT}, #{teamId,jdbcType=INTEGER},
+                #{password,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR},
+                #{accountMobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{enabledState,jdbcType=TINYINT},
+                #{pushCount,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.bridge.console.model.entity.UserAccountDO">
+        insert into br_user_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="accountName != null">
+                account_name,
+            </if>
+            <if test="accountRole != null">
+                account_role,
+            </if>
+            <if test="teamId != null">
+                team_id,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="token != null">
+                token,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="accountMobile != null">
+                account_mobile,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="enabledState != null">
+                enabled_state,
+            </if>
+            <if test="pushCount != null">
+                push_count,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="accountName != null">
+                #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="accountRole != null">
+                #{accountRole,jdbcType=TINYINT},
+            </if>
+            <if test="teamId != null">
+                #{teamId,jdbcType=INTEGER},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="token != null">
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="accountMobile != null">
+                #{accountMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="enabledState != null">
+                #{enabledState,jdbcType=TINYINT},
+            </if>
+            <if test="pushCount != null">
+                #{pushCount,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bridge.console.model.entity.UserAccountDO">
+        update br_user_account
+        <set>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="accountName != null">
+                account_name = #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="accountRole != null">
+                account_role = #{accountRole,jdbcType=TINYINT},
+            </if>
+            <if test="teamId != null">
+                team_id = #{teamId,jdbcType=INTEGER},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="token != null">
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="accountMobile != null">
+                account_mobile = #{accountMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="enabledState != null">
+                enabled_state = #{enabledState,jdbcType=TINYINT},
+            </if>
+            <if test="pushCount != null">
+                push_count = #{pushCount,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bridge.console.model.entity.UserAccountDO">
+        update br_user_account
+        set creator        = #{creator,jdbcType=INTEGER},
+            gmt_create     = #{gmtCreate,jdbcType=TIMESTAMP},
+            modifier       = #{modifier,jdbcType=INTEGER},
+            gmt_modified   = #{gmtModified,jdbcType=TIMESTAMP},
+            is_deleted     = #{isDeleted,jdbcType=BIT},
+            account_name   = #{accountName,jdbcType=VARCHAR},
+            account_role   = #{accountRole,jdbcType=TINYINT},
+            team_id        = #{teamId,jdbcType=INTEGER},
+            password       = #{password,jdbcType=VARCHAR},
+            token          = #{token,jdbcType=VARCHAR},
+            real_name      = #{realName,jdbcType=VARCHAR},
+            account_mobile = #{accountMobile,jdbcType=VARCHAR},
+            email          = #{email,jdbcType=VARCHAR},
+            enabled_state  = #{enabledState,jdbcType=TINYINT},
+            push_count     = #{pushCount,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByAccountName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from br_user_account
+        where account_name = #{accountName,jdbcType=VARCHAR} and is_deleted = 0
+    </select>
+
+    <select id="selectByToken" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from br_user_account
+        where token = #{token,jdbcType=VARCHAR} and is_deleted = 0
+    </select>
+
+    <update id="updateTokenByAccountId">
+        update br_user_account
+        set gmt_modified = now(),
+            token        = #{token,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+    </update>
+
+    <select id="countUserPageList" resultType="java.lang.Integer">
+        select
+        count(0)
+        from br_user_account
+        where is_deleted = 0
+        <if test="accountName != null">
+            and account_name like CONCAT('%', #{accountName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="teamId != null">
+            and team_id = #{teamId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+
+    <select id="queryUserPageList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_user_account
+        where is_deleted = 0
+        <if test="accountName != null">
+            and account_name like CONCAT('%', #{accountName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="teamId != null">
+            and team_id = #{teamId,jdbcType=INTEGER}
+        </if>
+        <if test="sorts != null">
+            order by
+            <foreach collection="sorts" item="tag" separator=",">
+                ${tag}
+            </foreach>
+        </if>
+        <if test="offset &gt;= 0 and limit &gt; 0">
+            LIMIT #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <update id="updateEnableById">
+        update br_user_account
+        set gmt_modified  = now(),
+            enabled_state = #{enabledState,jdbcType=TINYINT}
+        where id = #{accountId,jdbcType=INTEGER}
+          and is_deleted = 0
+    </update>
+
+
+    <update id="updateIsDeletedById">
+        update br_user_account
+        set gmt_modified = now(),
+            is_deleted   = #{isDeleted,jdbcType=INTEGER},
+            modifier     = #{modifier,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countNumberByTeamId" resultType="java.lang.Integer">
+        select
+            count(0)
+        from br_user_account
+        where team_id = #{teamId,jdbcType=INTEGER}
+          and is_deleted = 0;
+    </select>
+
+    <select id="selectRealNameById" resultType="java.lang.String">
+        select
+            real_name
+        from br_user_account
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+    </select>
+
+    <select id="queryUserList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_user_account
+        where is_deleted = 0
+        <if test="teamId != null">
+            and team_id = #{teamId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+
+    <select id="queryUserIdListInTeam" resultType="java.lang.Integer">
+        select
+            id
+        from br_user_account
+        where is_deleted = 0
+          and team_id = #{teamId,jdbcType=INTEGER}
+    </select>
+
+    <update id="increasePushCount">
+        update `br_user_account`
+        set push_count = push_count + 1
+        where id = #{operatorId,jdbcType=INTEGER}
+          and is_deleted = 0
+          and enabled_state = 1
+    </update>
+
+    <select id="selectPushCount" resultType="java.lang.Integer">
+        select sum(push_count) from br_user_account
+        where 1 = 1
+        <if test="teamId != null">
+            and team_id = #{teamId,jdbcType=INTEGER}
+        </if>
+        <if test="id != null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+
+    </select>
+
+</mapper>

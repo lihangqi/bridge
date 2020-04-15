@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.bridge.springboot.starter.configuration.BridgeAutoConfiguration
+org.springframework.context.ApplicationListener=\
+  com.bridge.springboot.starter.listener.BridgeEnvironmentPrepareListener,\
+  com.bridge.springboot.starter.listener.BridgeWelcomeListener
+

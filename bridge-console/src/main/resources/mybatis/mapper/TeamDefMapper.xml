@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bridge.console.model.dao.TeamDefMapper">
+    <resultMap id="BaseResultMap" type="com.bridge.console.model.entity.TeamDefDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="INTEGER"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="team_name" property="teamName" jdbcType="VARCHAR"/>
+        <result column="team_des" property="teamDes" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        ,
+        creator,
+        gmt_create,
+        modifier,
+        gmt_modified,
+        is_deleted,
+        team_name,
+        team_des
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from br_team_def
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from br_team_def
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.bridge.console.model.entity.TeamDefDO">
+        insert into br_team_def (id, creator, gmt_create,
+                                 modifier, gmt_modified, is_deleted,
+                                 team_name, team_des)
+        values (#{id,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
+                #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT},
+                #{teamName,jdbcType=VARCHAR}, #{teamDes,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.bridge.console.model.entity.TeamDefDO">
+        insert into br_team_def
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="teamName != null">
+                team_name,
+            </if>
+            <if test="teamDes != null">
+                team_des,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="teamName != null">
+                #{teamName,jdbcType=VARCHAR},
+            </if>
+            <if test="teamDes != null">
+                #{teamDes,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bridge.console.model.entity.TeamDefDO">
+        update br_team_def
+        <set>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="teamName != null">
+                team_name = #{teamName,jdbcType=VARCHAR},
+            </if>
+            <if test="teamDes != null">
+                team_des = #{teamDes,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bridge.console.model.entity.TeamDefDO">
+        update br_team_def
+        set creator      = #{creator,jdbcType=INTEGER},
+            gmt_create   = #{gmtCreate,jdbcType=TIMESTAMP},
+            modifier     = #{modifier,jdbcType=INTEGER},
+            gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            is_deleted   = #{isDeleted,jdbcType=BIT},
+            team_name    = #{teamName,jdbcType=VARCHAR},
+            team_des     = #{teamDes,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_team_def
+        where is_deleted = 0
+        <if test="id != null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="selectTeamNameById" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select
+            team_name
+        from br_team_def
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+    </select>
+
+    <select id="selectByTeamName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from br_team_def
+        where team_name = #{teamName,jdbcType=VARCHAR} and is_deleted = 0
+    </select>
+
+    <select id="countList" resultType="java.lang.Integer">
+        select
+        count(0)
+        from br_team_def
+        where is_deleted = 0
+        <if test="teamName != null">
+            and team_name like CONCAT('%', #{teamName,jdbcType=VARCHAR}, '%')
+        </if>
+    </select>
+
+
+    <select id="queryPageList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_team_def
+        where is_deleted = 0
+        <if test="teamName != null">
+            and team_name like CONCAT('%', #{teamName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="sorts != null">
+            order by
+            <foreach collection="sorts" item="tag" separator=",">
+                ${tag}
+            </foreach>
+        </if>
+        <if test="offset &gt;= 0 and limit &gt; 0">
+            LIMIT #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <update id="updateByTeamName">
+        update br_team_def
+        set gmt_modified = now(),
+            team_name    = #{teamName,jdbcType=VARCHAR},
+            team_des     = #{teamDes,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+    </update>
+
+    <update id="deleteByTeamId">
+        update br_team_def
+        set modifier     = #{modifier,jdbcType=INTEGER},
+            gmt_modified = now(),
+            is_deleted   = 1
+        where id = #{teamId,jdbcType=INTEGER}
+          and is_deleted = 0
+    </update>
+
+
+    <select id="queryTeamList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_team_def
+        where is_deleted = 0
+        <if test="teamId != null">
+            and id = #{teamId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="selectTeamInfoByAccountId" resultType="com.bridge.console.model.vo.TeamIdAndNameVO">
+        select
+            a.id        as teamId,
+            a.team_name as teamName
+        from br_team_def a
+                 left join br_user_account b on b.team_id = a.id
+        where b.id = #{accountId,jdbcType=INTEGER}
+          and a.is_deleted = 0
+          and b.is_deleted = 0
+    </select>
+
+    <select id="selectTeamNameAndAppNameByAppId" resultType="com.bridge.console.model.vo.TeamAndAppVO">
+        select a.app_name as appName, b.team_name as teamName
+        from br_app_def a
+                 left join br_team_def b on a.team_id = b.id
+        where a.id = #{appId,jdbcType=INTEGER}
+          and a.is_deleted = 0
+          and b.is_deleted = 0;
+    </select>
+
+</mapper>

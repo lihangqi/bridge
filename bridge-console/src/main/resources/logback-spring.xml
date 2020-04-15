@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration debug="false">
+
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+    <property name="CONSOLE_LOG_PATTERN" value = "${CONSOLE_LOG_PATTERN:-%clr([%d{'MM-dd HH:mm:ss,SSS',GMT+8:00}]){green} %clr(${LOG_LEVEL_PATTERN:-%5p}){red} %clr([%.10t]){blue}[%X{CU}]  %clr(%logger{40}){cyan}%clr([%L]){yellow} - %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <!--控制台输出-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="COMMON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${user.home}/logs/bridge/bridge.log</file>
+        <append>true</append>
+        <rollingPolicy  class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${user.home}/logs/bridge/bridge.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DB" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${user.home}/logs/bridge/db.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${user.home}/logs/bridge/db.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--执行时间-->
+    <appender name="EXECUTE_TIME" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${user.home}/logs/bridge/executeTime.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${user.home}/logs/bridge/executeTime.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${user.home}/logs/bridge/error.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${user.home}/logs/bridge/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.cloudm.bridge"  additivity="false" >
+        <appender-ref ref="COMMON"/>
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!--执行时间-->
+    <logger name="com.cloudm.bridge.config.ResultInterceptor">
+        <appender-ref ref="EXECUTE_TIME"/>
+    </logger>
+
+    <!--关闭调度中心的日志-->
+    <logger name="com.xxl.job.core" level="info"  additivity="false" />
+
+    <!--关闭dubbo的提供者check的warn日志-->
+    <logger name="com.alibaba.dubbo.remoting.transport.AbstractClient" level="warn"  additivity="false" />
+
+    <logger name="com.ibatis" level="DEBUG"  ></logger>
+    <logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG" />
+    <logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG" />
+    <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" />
+    <logger name="java.sql.Connection" level="DEBUG" />
+    <logger name="java.sql" level="DEBUG" >
+        <appender-ref ref="DB"/>
+    </logger>
+    <logger name="java.sql.PreparedStatement" level="DEBUG" />
+    <logger name="org.springframework.security.core.SpringSecurityCoreVersion" level="error" additivity="false"></logger>
+    <logger name="org.apache.zookeeper" level="INFO"/>
+    <logger name="com.cloudm.bridge.mapper">
+        <appender-ref ref="DB"/>
+        <appender-ref ref="ERROR"/>
+    </logger>
+    <root>
+        <level value="${logging.level.root}"/>
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="COMMON"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <logger name="com.atomikos">
+        <level value="error" />
+    </logger>
+</configuration>

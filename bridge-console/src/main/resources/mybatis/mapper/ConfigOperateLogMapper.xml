@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bridge.console.model.dao.ConfigOperateLogMapper">
+    <resultMap id="BaseResultMap" type="com.bridge.console.model.entity.ConfigOperateLogDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="INTEGER"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="app_id" property="appId" jdbcType="INTEGER"/>
+        <result column="env_id" property="envId" jdbcType="BIT"/>
+        <result column="operate_id" property="operateId" jdbcType="INTEGER"/>
+        <result column="operate_name" property="operateName" jdbcType="VARCHAR"/>
+        <result column="config_key" property="configKey" jdbcType="VARCHAR"/>
+        <result column="value_before" property="valueBefore" jdbcType="VARCHAR"/>
+        <result column="version_before" property="versionBefore" jdbcType="VARCHAR"/>
+        <result column="value_after" property="valueAfter" jdbcType="VARCHAR"/>
+        <result column="version_after" property="versionAfter" jdbcType="VARCHAR"/>
+        <result column="key_des" property="keyDes" jdbcType="VARCHAR"/>
+        <result column="operate_type" property="operateType" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        ,
+        creator,
+        gmt_create,
+        modifier,
+        gmt_modified,
+        is_deleted,
+        app_id,
+        env_id,
+        operate_id,
+        operate_name,
+        config_key,
+        value_before,
+        version_before,
+        value_after,
+        version_after,
+        key_des,
+        operate_type
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from br_config_operate_log
+        where id = #{id,jdbcType=INTEGER} and is_deleted = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from br_config_operate_log
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.bridge.console.model.entity.ConfigOperateLogDO">
+        insert into br_config_operate_log (id, creator, gmt_create,
+                                           modifier, gmt_modified, is_deleted,
+                                           app_id, env_id, operate_id,
+                                           operate_name, config_key, value_before,
+                                           version_before, value_after, version_after, key_des,
+                                           operate_type)
+        values (#{id,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
+                #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT},
+                #{appId,jdbcType=INTEGER}, #{envId,jdbcType=BIT}, #{operateId,jdbcType=INTEGER},
+                #{operateName,jdbcType=VARCHAR}, #{configKey,jdbcType=VARCHAR}, #{valueBefore,jdbcType=VARCHAR},
+                #{versionBefore,jdbcType=VARCHAR}, #{valueAfter,jdbcType=VARCHAR}, #{versionAfter,jdbcType=VARCHAR},
+                #{keyDes,jdbcType=VARCHAR},
+                #{operateType,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.bridge.console.model.entity.ConfigOperateLogDO">
+        insert into br_config_operate_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="envId != null">
+                env_id,
+            </if>
+            <if test="operateId != null">
+                operate_id,
+            </if>
+            <if test="operateName != null">
+                operate_name,
+            </if>
+            <if test="configKey != null">
+                config_key,
+            </if>
+            <if test="valueBefore != null">
+                value_before,
+            </if>
+            <if test="versionBefore != null">
+                version_before,
+            </if>
+            <if test="valueAfter != null">
+                value_after,
+            </if>
+            <if test="versionAfter != null">
+                version_after,
+            </if>
+            <if test="keyDes != null">
+                key_des,
+            </if>
+            <if test="operateType != null">
+                operate_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=INTEGER},
+            </if>
+            <if test="envId != null">
+                #{envId,jdbcType=BIT},
+            </if>
+            <if test="operateId != null">
+                #{operateId,jdbcType=INTEGER},
+            </if>
+            <if test="operateName != null">
+                #{operateName,jdbcType=VARCHAR},
+            </if>
+            <if test="configKey != null">
+                #{configKey,jdbcType=VARCHAR},
+            </if>
+            <if test="valueBefore != null">
+                #{valueBefore,jdbcType=VARCHAR},
+            </if>
+            <if test="versionBefore != null">
+                #{versionBefore,jdbcType=VARCHAR},
+            </if>
+            <if test="valueAfter != null">
+                #{valueAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="versionAfter != null">
+                #{versionAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="keyDes != null">
+                #{keyDes,jdbcType=VARCHAR},
+            </if>
+            <if test="operateType != null">
+                #{operateType,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bridge.console.model.entity.ConfigOperateLogDO">
+        update br_config_operate_log
+        <set>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="appId != null">
+                app_id = #{appId,jdbcType=INTEGER},
+            </if>
+            <if test="envId != null">
+                env_id = #{envId,jdbcType=BIT},
+            </if>
+            <if test="operateId != null">
+                operate_id = #{operateId,jdbcType=INTEGER},
+            </if>
+            <if test="operateName != null">
+                operate_name = #{operateName,jdbcType=VARCHAR},
+            </if>
+            <if test="configKey != null">
+                config_key = #{configKey,jdbcType=VARCHAR},
+            </if>
+            <if test="valueBefore != null">
+                value_before = #{valueBefore,jdbcType=VARCHAR},
+            </if>
+            <if test="versionBefore != null">
+                version_before = #{versionBefore,jdbcType=VARCHAR},
+            </if>
+            <if test="valueAfter != null">
+                value_after = #{valueAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="versionAfter != null">
+                version_after = #{versionAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="keyDes != null">
+                key_des = #{keyDes,jdbcType=VARCHAR},
+            </if>
+            <if test="operateType != null">
+                operate_type = #{operateType,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bridge.console.model.entity.ConfigOperateLogDO">
+        update br_config_operate_log
+        set creator        = #{creator,jdbcType=INTEGER},
+            gmt_create     = #{gmtCreate,jdbcType=TIMESTAMP},
+            modifier       = #{modifier,jdbcType=INTEGER},
+            gmt_modified   = #{gmtModified,jdbcType=TIMESTAMP},
+            is_deleted     = #{isDeleted,jdbcType=BIT},
+            app_id         = #{appId,jdbcType=INTEGER},
+            env_id         = #{envId,jdbcType=BIT},
+            operate_id     = #{operateId,jdbcType=INTEGER},
+            operate_name   = #{operateName,jdbcType=VARCHAR},
+            config_key     = #{configKey,jdbcType=VARCHAR},
+            value_before   = #{valueBefore,jdbcType=VARCHAR},
+            version_before = #{versionBefore,jdbcType=VARCHAR},
+            value_after    = #{valueAfter,jdbcType=VARCHAR},
+            version_after  = #{versionAfter,jdbcType=VARCHAR},
+            key_des        = #{keyDes,jdbcType=VARCHAR},
+            operate_type   = #{operateType,jdbcType=TINYINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countOperateLogList" resultType="java.lang.Integer">
+        select
+        count(0)
+        from br_config_operate_log
+        where is_deleted = 0 and env_id = #{envId,jdbcType=BIT}
+        <if test="appIdList != null and appIdList.size() > 0">
+            and app_id in
+            <foreach collection="appIdList" open="(" item="item" close=")" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="configKey != null">
+            and config_key like CONCAT('%', #{configKey,jdbcType=VARCHAR}, '%')
+        </if>
+    </select>
+
+    <select id="queryOperateLogList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_config_operate_log
+        where is_deleted = 0 and env_id = #{envId,jdbcType=BIT}
+        <if test="appIdList != null and appIdList.size() > 0">
+            and app_id in
+            <foreach collection="appIdList" open="(" item="item" close=")" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="configKey != null">
+            and config_key like CONCAT('%', #{configKey,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="sorts != null">
+            order by
+            <foreach collection="sorts" item="tag" separator=",">
+                ${tag}
+            </foreach>
+        </if>
+        <if test="offset &gt;= 0 and limit &gt; 0">
+            LIMIT #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>

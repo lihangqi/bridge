@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+dist*/
+npm-debug.log
+*.log
+*.json
+!package.json
+.idea/
+.cache*/

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.2.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.bridge</groupId>
+    <artifactId>bridge-spring-boot-starter</artifactId>
+    <version>2.0.0</version>
+
+    <name>bridge-spring-boot-starter</name>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <bridge-core-version>2.0.0</bridge-core-version>
+        <main.basedir>${basedir}/../..</main.basedir>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bridge.core</groupId>
+            <artifactId>bridge-core</artifactId>
+            <version>${bridge-core-version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>cloudm-releases</id>
+            <name>Release Repository</name>
+            <url>http://192.168.1.175:18081/nexus/content/repositories/cloudm-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>cloudm-snapshots</id>
+            <name>Snapshot Repository</name>
+            <url>http://192.168.1.175:18081/nexus/content/repositories/cloudm-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>

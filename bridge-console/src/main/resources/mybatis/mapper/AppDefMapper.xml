@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bridge.console.model.dao.AppDefMapper">
+    <resultMap id="BaseResultMap" type="com.bridge.console.model.entity.AppDefDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="INTEGER"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="INTEGER"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="enabled_state" property="enabledState" jdbcType="TINYINT"/>
+        <result column="app_code" property="appCode" jdbcType="VARCHAR"/>
+        <result column="app_name" property="appName" jdbcType="VARCHAR"/>
+        <result column="app_owner" property="appOwner" jdbcType="INTEGER"/>
+        <result column="team_id" property="teamId" jdbcType="INTEGER"/>
+        <result column="app_des" property="appDes" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,
+        creator,
+        gmt_create,
+        modifier,
+        gmt_modified,
+        is_deleted,
+        enabled_state,
+        app_code,
+        app_name,
+        app_owner,
+        team_id,
+        app_des
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from br_app_def
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByAppName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from br_app_def
+        where app_name = #{appName,jdbcType=VARCHAR} and is_deleted = 0
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from br_app_def
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.bridge.console.model.entity.AppDefDO">
+        insert into br_app_def (id, creator, gmt_create,
+                                modifier, gmt_modified, is_deleted,
+                                enabled_state, app_code, app_name,
+                                app_owner, team_id, app_des)
+        values (#{id,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
+                #{modifier,jdbcType=INTEGER}, #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT},
+                #{enabledState,jdbcType=TINYINT}, #{appCode,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR},
+                #{appOwner,jdbcType=INTEGER}, #{teamId,jdbcType=INTEGER}, #{appDes,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.bridge.console.model.entity.AppDefDO">
+        insert into br_app_def
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="enabledState != null">
+                enabled_state,
+            </if>
+            <if test="appCode != null">
+                app_code,
+            </if>
+            <if test="appName != null">
+                app_name,
+            </if>
+            <if test="appOwner != null">
+                app_owner,
+            </if>
+            <if test="teamId != null">
+                team_id,
+            </if>
+            <if test="appDes != null">
+                app_des,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="enabledState != null">
+                #{enabledState,jdbcType=TINYINT},
+            </if>
+            <if test="appCode != null">
+                #{appCode,jdbcType=VARCHAR},
+            </if>
+            <if test="appName != null">
+                #{appName,jdbcType=VARCHAR},
+            </if>
+            <if test="appOwner != null">
+                #{appOwner,jdbcType=INTEGER},
+            </if>
+            <if test="teamId != null">
+                #{teamId,jdbcType=INTEGER},
+            </if>
+            <if test="appDes != null">
+                #{appDes,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.bridge.console.model.entity.AppDefDO">
+        update br_app_def
+        <set>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="enabledState != null">
+                enabled_state = #{enabledState,jdbcType=TINYINT},
+            </if>
+            <if test="appCode != null">
+                app_code = #{appCode,jdbcType=VARCHAR},
+            </if>
+            <if test="appName != null">
+                app_name = #{appName,jdbcType=VARCHAR},
+            </if>
+            <if test="appOwner != null">
+                app_owner = #{appOwner,jdbcType=INTEGER},
+            </if>
+            <if test="teamId != null">
+                team_id = #{teamId,jdbcType=INTEGER},
+            </if>
+            <if test="appDes != null">
+                app_des = #{appDes,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.bridge.console.model.entity.AppDefDO">
+        update br_app_def
+        set creator       = #{creator,jdbcType=INTEGER},
+            gmt_create    = #{gmtCreate,jdbcType=TIMESTAMP},
+            modifier      = #{modifier,jdbcType=INTEGER},
+            gmt_modified  = #{gmtModified,jdbcType=TIMESTAMP},
+            is_deleted    = #{isDeleted,jdbcType=BIT},
+            enabled_state = #{enabledState,jdbcType=TINYINT},
+            app_code      = #{appCode,jdbcType=VARCHAR},
+            app_name      = #{appName,jdbcType=VARCHAR},
+            app_owner     = #{appOwner,jdbcType=INTEGER},
+            team_id       = #{teamId,jdbcType=INTEGER},
+            app_des       = #{appDes,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteById">
+        update br_app_def
+        set modifier     = #{modifier,jdbcType=INTEGER},
+            is_deleted   = 1,
+            gmt_modified = now()
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countAppList" resultType="java.lang.Integer">
+        select
+        count(0)
+        from br_app_def
+        where is_deleted = 0
+        <if test="appCode != null">
+            and app_code like CONCAT('%', #{appCode,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="appName != null">
+            and app_name like CONCAT('%', #{appName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="teamId != null">
+            and team_id = #{teamId,jdbcType=INTEGER}
+        </if>
+        <if test="appOwner != null">
+            and app_owner = #{appOwner,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="queryAppIdList" resultType="java.lang.Integer">
+        select
+        id
+        from br_app_def
+        where is_deleted = 0
+        <if test="appName != null">
+            and app_name like CONCAT('%', #{appName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="teamId != null">
+            and team_id = #{teamId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="queryAppList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from br_app_def
+        where is_deleted = 0
+        <if test="appCode != null">
+            and app_code like CONCAT('%', #{appCode,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="appName != null">
+            and app_name like CONCAT('%', #{appName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="teamId != null">
+            and team_id = #{teamId,jdbcType=INTEGER}
+        </if>
+        <if test="appOwner != null">
+            and app_owner = #{appOwner,jdbcType=INTEGER}
+        </if>
+        <if test="appId != null">
+            and id = #{appId,jdbcType=INTEGER}
+        </if>
+        <if test="sorts != null">
+            order by
+            <foreach collection="sorts" item="tag" separator=",">
+                ${tag}
+            </foreach>
+        </if>
+        <if test="offset &gt;= 0 and limit &gt; 0">
+            LIMIT #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="queryWorkSpaceAppList" resultType="com.bridge.console.model.entity.AppDefDO">
+        select
+        a.id as id,
+        max(ifnull(b.`gmt_create`,a.`gmt_create`)) as gmtCreate,
+        a.`app_name` as appName,
+        a.`app_des` as appDes,
+        a.`team_id` as teamId,
+        a.app_owner as appOwner
+        from `br_app_def` a left join `br_config_operate_log` b on a.id = b.app_id
+        and a.`is_deleted` = 0 and b.`is_deleted` = 0
+        and b.env_id = #{envId,jdbcType=INTEGER}
+        where a.id
+        in
+        (
+        select id from br_app_def where is_deleted = 0
+        <if test="teamId != null">
+            and team_id = #{teamId,jdbcType=INTEGER}
+        </if>
+        )
+        group by a.id
+        order by gmtCreate desc limit #{limit,jdbcType=INTEGER}
+    </select>
+
+
+    <update id="updateById" parameterType="com.bridge.console.model.entity.AppDefDO">
+        update br_app_def
+        set modifier     = #{modifier,jdbcType=INTEGER},
+            gmt_modified = now(),
+            app_name     = #{appName,jdbcType=VARCHAR},
+            app_owner    = #{appOwner,jdbcType=INTEGER},
+            team_id      = #{teamId,jdbcType=INTEGER},
+            app_des      = #{appDes,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+    </update>
+
+    <select id="selectByAppCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from br_app_def
+        where app_code = #{appCode,jdbcType=VARCHAR} and is_deleted = 0
+    </select>
+
+    <select id="selectAppNameByAppCode" resultType="java.lang.String" parameterType="java.lang.String">
+        select
+        app_name
+        from br_app_def
+        where app_code = #{appCode,jdbcType=VARCHAR} and is_deleted = 0
+    </select>
+
+
+    <select id="selectByAppOwner" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from br_app_def
+        where app_owner = #{appOwner,jdbcType=INTEGER} and is_deleted = 0
+    </select>
+
+    <select id="selectAppCodeById" resultType="java.lang.String">
+        select
+            app_code
+        from br_app_def
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+    </select>
+
+    <select id="selectAppNameById" resultType="java.lang.String">
+        select
+            app_name
+        from br_app_def
+        where id = #{id,jdbcType=INTEGER}
+          and is_deleted = 0
+    </select>
+
+</mapper>

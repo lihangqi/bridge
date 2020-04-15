@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bridge.console.model.dao.SystemLogMapper">
+    <resultMap id="BaseResultMap" type="com.bridge.console.model.entity.SystemLogDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="env_id" property="envId" jdbcType="BIT"/>
+        <result column="log_record_time" property="logRecordTime" jdbcType="TIMESTAMP"/>
+        <result column="log_level" property="logLevel" jdbcType="BIT"/>
+        <result column="client_ip" property="clientIp" jdbcType="VARCHAR"/>
+        <result column="app_code" property="appCode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.bridge.console.model.entity.SystemLogDO" extends="BaseResultMap">
+        <result column="log_content" property="logContent" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, is_deleted, env_id, log_record_time, log_level, client_ip, app_code
+  </sql>
+    <sql id="Blob_Column_List">
+    log_content
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from br_sys_log
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from br_sys_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.bridge.console.model.entity.SystemLogDO">
+    insert into br_sys_log (id, is_deleted, env_id, 
+      log_record_time, log_level, client_ip, 
+      app_code, log_content
+      )
+    values (#{id,jdbcType=INTEGER}, #{isDeleted,jdbcType=BIT}, #{envId,jdbcType=BIT}, 
+      #{logRecordTime,jdbcType=TIMESTAMP}, #{logLevel,jdbcType=BIT}, #{clientIp,jdbcType=VARCHAR}, 
+      #{appCode,jdbcType=VARCHAR}, #{logContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.bridge.console.model.entity.SystemLogDO">
+        insert into br_sys_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="envId != null">
+                env_id,
+            </if>
+            <if test="logRecordTime != null">
+                log_record_time,
+            </if>
+            <if test="logLevel != null">
+                log_level,
+            </if>
+            <if test="clientIp != null">
+                client_ip,
+            </if>
+            <if test="appCode != null">
+                app_code,
+            </if>
+            <if test="logContent != null">
+                log_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="envId != null">
+                #{envId,jdbcType=BIT},
+            </if>
+            <if test="logRecordTime != null">
+                #{logRecordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logLevel != null">
+                #{logLevel,jdbcType=BIT},
+            </if>
+            <if test="clientIp != null">
+                #{clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="appCode != null">
+                #{appCode,jdbcType=VARCHAR},
+            </if>
+            <if test="logContent != null">
+                #{logContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bridge.console.model.entity.SystemLogDO">
+        update br_sys_log
+        <set>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="envId != null">
+                env_id = #{envId,jdbcType=BIT},
+            </if>
+            <if test="logRecordTime != null">
+                log_record_time = #{logRecordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logLevel != null">
+                log_level = #{logLevel,jdbcType=BIT},
+            </if>
+            <if test="clientIp != null">
+                client_ip = #{clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="appCode != null">
+                app_code = #{appCode,jdbcType=VARCHAR},
+            </if>
+            <if test="logContent != null">
+                log_content = #{logContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bridge.console.model.entity.SystemLogDO">
+    update br_sys_log
+    set is_deleted = #{isDeleted,jdbcType=BIT},
+      env_id = #{envId,jdbcType=BIT},
+      log_record_time = #{logRecordTime,jdbcType=TIMESTAMP},
+      log_level = #{logLevel,jdbcType=BIT},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      app_code = #{appCode,jdbcType=VARCHAR},
+      log_content = #{logContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+    <select id="countSystemLogList" resultType="int" parameterType="com.bridge.console.model.vo.SystemLogQuery">
+        select count(0) from br_sys_log a left join br_app_def b on a.app_code = b.app_code
+        where a.is_deleted = 0 and b.is_deleted = 0  and a.env_id = #{envId,jdbcType=VARCHAR}
+        <if test="startTime != null and startTime != ''">
+            and a.log_record_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and a.log_record_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="appCodeList != null and appCodeList.size() > 0">
+            and a.app_code in
+            <foreach collection="appCodeList" item="appCode" open="(" separator="," close=")">
+                #{appCode,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="querySystemLogList" resultType="com.bridge.console.model.entity.SystemLogDO"
+            parameterType="com.bridge.console.model.vo.SystemLogQuery">
+        select a.id as id, a.env_id as envId, a.log_record_time as logRecordTime, a.log_level as logLevel,
+        a.client_ip as clientIp, a.app_code as appCode, b.app_name as appName,a.log_content as logContent
+        from br_sys_log a left join br_app_def b on a.app_code = b.app_code where a.is_deleted = 0 and b.is_deleted = 0
+        and a.env_id = #{envId,jdbcType=VARCHAR}
+        <if test="startTime != null and startTime != ''">
+            and a.log_record_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and a.log_record_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="appCodeList != null and appCodeList.size() > 0">
+            and a.app_code in
+            <foreach collection="appCodeList" item="appCode" open="(" separator="," close=")">
+                #{appCode,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="sorts != null">
+            order by
+            <foreach collection="sorts" item="tag" separator=",">
+                ${tag}
+            </foreach>
+        </if>
+        <if test="offset &gt;= 0 and limit &gt; 0">
+            LIMIT #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>
