@@ -6,8 +6,8 @@ English | [中文](/README.cn.md)
     <h3 align = "center"> Bridge </h3>
     <h3 align = "center"> Configuration Center · Management System </h3>
     <p align = "center"> Full / grayscale delivery, real-time monitoring of instance configuration item subscription, release rollback, operation log, configuration item monitoring, permission control, multi-environment switching </p>
+      <p align="center"><a href="https://lihangqi.gitbook.io/bridge-documentation/">-- For more information --</a></p>
 </p>
-
 
 ### Development background
 
@@ -60,7 +60,9 @@ English | [中文](/README.cn.md)
 ### Framework Principle
 
 * Push-pull model
-! [Push-pull model](https://oss-weslie.oss-cn-shanghai.aliyuncs.com/data/github_content_pic/172017_6a19aa71_718145.png "bridge-yl-zh-cn.png")
+
+![Push-pull model](https://oss-weslie.oss-cn-shanghai.aliyuncs.com/data/github_content_pic/172017_6a19aa71_718145.png "bridge-yl-zh-cn.png")
 
 * Configuration item loading strategy
-! [Configuration item loading strategy](https://oss-weslie.oss-cn-shanghai.aliyuncs.com/data/github_content_pic/181826_1e8042ee_718145.png "1112.png")
+
+![Configuration item loading strategy](https://oss-weslie.oss-cn-shanghai.aliyuncs.com/data/github_content_pic/181826_1e8042ee_718145.png "1112.png")
